@@ -37,7 +37,9 @@ const Actionpage=()=>{
     const handledeleteclick=async(id)=>{
         try{
           const res=await axios.get("http://localhost:8800/deletetask/"+id)
-          window.location.reload()
+        //   window.location.reload()
+        fetchalltasks()
+
         }
         catch(err){
           console.log(err)
@@ -56,13 +58,14 @@ const Actionpage=()=>{
             const resp=await axios.post("http://localhost:8800/addtask/",addtask)
             console.log(resp)
             alert("Task Added Successfully.")
-            window.location.reload()
+            fetchalltasks()
+
+            // window.location.reload()
         }
         catch(error){
             console.log(error)
             alert("API Not Working.")  
         }
-
         }
 
 
