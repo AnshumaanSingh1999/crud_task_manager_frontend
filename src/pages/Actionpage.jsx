@@ -8,6 +8,14 @@ const Actionpage=()=>{
 
     const [alltasks,setalltasks]=useState([])
 
+
+    const[addtask,setaddtask]=useState(
+        {
+            task:"",
+            status:"ongoing"
+        }
+    )
+
    
 
     const fetchalltasks=async()=>{
@@ -37,6 +45,28 @@ const Actionpage=()=>{
     }
 
 
+    const handleaddchange=(e)=>{
+        setaddtask(prev=>({...prev,[e.target.name]:e.target.value}))
+    }
+
+
+    const handleaddclick=async()=>{
+
+        try{
+            const resp=await axios.post("http://localhost:8800/addtask/",addtask)
+            console.log(resp)
+            alert("Task Added Successfully.")
+            window.location.reload()
+        }
+        catch(error){
+            console.log(error)
+            alert("API Not Working.")  
+        }
+
+        }
+
+
+
     return(
         <div className="container">
             <h1>Task Manager</h1>
@@ -46,9 +76,9 @@ const Actionpage=()=>{
                 <div className="col-sm-2"><b>Task</b></div>
             </div>
             <div className="row">
-                <div className="col-sm-2"><input type="text" autoComplete="off"/></div>
-                <div ><input type="hidden" value="To be Done"/></div>
-                <div className="col-sm-2"><button>Add Task</button></div>
+                <div className="col-sm-2"><input type="text" name="task" id="task" autoComplete="off" onChange={handleaddchange}/></div>
+                {/* <div ><input type="hidden" value="To be Done"/></div> */}
+                <div className="col-sm-2"><button onClick={handleaddclick}>Add Task</button></div>
             </div>
             </div>
         <hr></hr>
